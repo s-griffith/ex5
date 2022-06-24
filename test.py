@@ -107,10 +107,9 @@ class Test(unittest.TestCase):
         self.assertListEqual(data_to_test,expected_data, "Error: the content of the file created by   \
                                               the fucntion - enrollment_number     \
                                               doesn't match the expected one.")
-		
-		
-		
+        print(bcolors.OKGREEN + "Test 2 Passed" + bcolors.ENDC)
 
+		
     def test3(self):
         
         """

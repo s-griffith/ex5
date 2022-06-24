@@ -37,6 +37,35 @@ def enrollment_numbers(input_json_path, output_file_path):
     :param input_json_path: Path of the students database json file.
     :param output_file_path: Path of the output text file.
     """
+    courses_list = set()
+    num_enrolled = {}
+    try:
+        with open(input_json_path) as json_file:
+            data = json.load(json_file)
+            for index in data.keys():
+                courses = [data[index]['registered_courses'] for elem in data[index]]
+                course_number = 0
+                while course_number < len(courses):
+                    courses_list.update(courses[course_number])
+                    course_number += 1
+    except IOError:
+        print("Could not open file.\n") #temporary until figure out what needs to happen
+        raise
+    except FileNotFoundError:
+        print("File not found.\n")
+        raise
+    for elem in courses_list:
+        students = names_of_registered_students(input_json_path, elem)
+        num_enrolled[elem] = len(students)
+    ordered_list = list(num_enrolled.keys())
+    ordered_list.sort()
+    try:
+        with open(output_file_path, 'w') as file:
+            for item in ordered_list:
+                file.writelines(['"' ,item, '"', " ", str(num_enrolled[item]), "\n"])
+    except IOError:
+        print("Could not open file.\n") #check that this is a thing here
+        raise     
     pass
 
 
