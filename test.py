@@ -55,6 +55,42 @@ class Test(unittest.TestCase):
                                                   doesn't match the expected one.")
         print(bcolors.OKGREEN + "Test 1a Passed" + bcolors.ENDC)
 
+    def test1b(self):
+        """
+        this test for the first function - names_of_registered_students.
+
+        """
+
+        correct_answer = ["Mohamed Gramne", "Zoabi", "Yazeed Falah"]
+
+        result = names_of_registered_students(input_json_path,"Introduction to Algorithms")
+
+        correct_answer.sort()
+        result.sort()
+
+        self.assertListEqual(correct_answer, result, "Error: the output of the function   \
+                                                  names_of_registered_students        \
+                                                  doesn't match the expected one.")
+        print(bcolors.OKGREEN + "Test 1b Passed" + bcolors.ENDC)
+
+    def test1c(self):
+        """
+        this test for the first function - names_of_registered_students.
+
+        """
+
+        correct_answer = []
+
+        result = names_of_registered_students(input_json_path,"Introduction to Computer Science")
+
+        correct_answer.sort()
+        result.sort()
+
+        self.assertListEqual(correct_answer, result, "Error: the output of the function   \
+                                                  names_of_registered_students        \
+                                                  doesn't match the expected one.")
+        print(bcolors.OKGREEN + "Test 1c Passed" + bcolors.ENDC)
+
     def test2(self):
         """
         this test for the second function - enrollment_number.

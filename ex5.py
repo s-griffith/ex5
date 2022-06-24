@@ -12,7 +12,21 @@ def names_of_registered_students(input_json_path, course_name):
     :param course_name: The name of the course.
     :return: List of the names of the students.
     """
-    pass
+    student_names = []
+    try:
+        with open(input_json_path) as json_file:
+            data = json.load(json_file)
+            for index in data.keys():
+                current_name = [data[index]['student_name'] for elem in data[index]['registered_courses'] if course_name == elem]
+                if  current_name != []:
+                    student_names.append(current_name[0])
+    except IOError:
+        print("Could not open file.\n") #temporary until figure out what needs to happen
+        raise
+    except FileNotFoundError:
+        print("File not found.\n")
+        raise
+    return student_names
 
 
 def enrollment_numbers(input_json_path, output_file_path):
