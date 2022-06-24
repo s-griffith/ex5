@@ -5,6 +5,17 @@ import unittest
 input_json_path = "students_database.json"
 database_directory_path = "semesters_databases"
 
+class bcolors:
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
 class Test(unittest.TestCase):
 
 
@@ -24,6 +35,25 @@ class Test(unittest.TestCase):
         self.assertListEqual(correct_answer, result, "Error: the output of the function   \
                                                   names_of_registered_students        \
                                                   doesn't match the expected one.")
+        print(bcolors.OKGREEN + "Test 1 Passed" + bcolors.ENDC)
+    
+    def test1a(self):
+        """
+        this test for the first function - names_of_registered_students.
+
+        """
+
+        correct_answer = ["Mohamed Gramne", "Mhameed", "Yazeed Falah"]
+
+        result = names_of_registered_students(input_json_path,"Data Structures 1")
+
+        correct_answer.sort()
+        result.sort()
+
+        self.assertListEqual(correct_answer, result, "Error: the output of the function   \
+                                                  names_of_registered_students        \
+                                                  doesn't match the expected one.")
+        print(bcolors.OKGREEN + "Test 1a Passed" + bcolors.ENDC)
 
     def test2(self):
         """
