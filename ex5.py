@@ -96,11 +96,8 @@ def courses_for_lecturers(json_directory_path, output_json_path):
         # Write dictionary to output file
         with open(output_json_path, 'w') as outfile:
             json.dump(lecturers_dict, outfile, indent=4)
-    except IOError:
-        print("Could not open file.\n")
-        raise
-    except FileNotFoundError:
-        print("File not found.\n")
+    except OSError:
+        print("Could not open/read/write to file.\n")
         raise
 
 
