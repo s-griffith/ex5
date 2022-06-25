@@ -1,7 +1,10 @@
 import json
 import os
+import glob
 
-
+# In the piazza they said we don't need exception handling------------------------------------------------------------------------------------
+# They also said we don't have conventions in python, but I do think we should keep the lines under 120 in length,----------------------------
+#   though I am unsure about variable names (camelcase VS underscore)-------------------------------------------------------------------------
 
 def names_of_registered_students(input_json_path, course_name):
     """
@@ -77,7 +80,30 @@ def courses_for_lecturers(json_directory_path, output_json_path):
     :param json_directory_path: Path of the semsters_data files.
     :param output_json_path: Path of the output json file.
     """
-    pass
+    lecturers_dict = {}
+    try:
+        # Go through json files in folder
+        for filename in glob.glob(os.path.join(json_directory_path, '*.json')):
+            with open(filename) as currentFile:
+                data = json.load(currentFile)
+                # Go through the courses in each file, and to the relevant lecturers in the dictionary
+                for course in data:
+                    for lecturer in data[course]["lecturers"]:
+                        if lecturer not in lecturers_dict:
+                            lecturers_dict[lecturer] = [data[course]["course_name"]]
+                        elif data[course]["course_name"] not in lecturers_dict[lecturer]:
+                            lecturers_dict[lecturer].append(data[course]["course_name"])
+        # Write dictionary to output file
+        with open(output_json_path, 'w') as outfile:
+            json.dump(lecturers_dict, outfile, indent=4)
+    except IOError:
+        print("Could not open file.\n")
+        raise
+    except FileNotFoundError:
+        print("File not found.\n")
+        raise
+
+
 
 
 
