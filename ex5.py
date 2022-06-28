@@ -15,7 +15,7 @@ def names_of_registered_students(input_json_path, course_name):
     student_names = []
     with open(input_json_path) as json_file:
         data = json.load(json_file)
-        for index in data.keys():
+        for index in data:
             current_name = [data[index]['student_name'] for elem in data[index]['registered_courses']
                             if course_name == elem]
             if current_name != []:
@@ -35,12 +35,9 @@ def enrollment_numbers(input_json_path, output_file_path):
     num_enrolled = {}
     with open(input_json_path) as json_file:
         data = json.load(json_file)
-        for index in data.keys():
-            courses = [data[index]['registered_courses'] for elem in data[index]]
-            course_number = 0
-            while course_number < len(courses):
-                courses_list.update(courses[course_number])
-                course_number += 1
+        for index in data:
+            courses = data[index]['registered_courses']
+            courses_list.update(courses)
     for elem in courses_list:
         students = names_of_registered_students(input_json_path, elem)
         num_enrolled[elem] = len(students)
