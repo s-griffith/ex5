@@ -13,10 +13,10 @@ def names_of_registered_students(input_json_path, course_name):
     :return: List of the names of the students.
     """
     student_names = []
-    #Open the file as a JSON file and receive the data in its proper data structure:
+    # Open the file as a JSON file and receive the data in its proper data structure:
     with open(input_json_path) as json_file:
         data = json.load(json_file)
-        #Run on all the students in the database, and add their name to a list if they are registered in the course:
+        # Run on all the students in the database, and add their name to a list if they are registered in the course:
         for index in data:
             current_name = [data[index]['student_name'] for elem in data[index]['registered_courses']
                             if course_name == elem]
@@ -35,18 +35,18 @@ def enrollment_numbers(input_json_path, output_file_path):
     """
     courses_list = set()
     num_enrolled = {}
-    #Open the file as a JSON file and receive the data in its proper data structure:
+    # Open the file as a JSON file and receive the data in its proper data structure:
     with open(input_json_path) as json_file:
         data = json.load(json_file)
-        #Go through each student in the database and create a set of courses:
+        # Go through each student in the database and create a set of courses:
         for index in data:
             courses = data[index]['registered_courses']
             courses_list.update(courses)
-    #Use the previous function to get a list of students registered for each course:
+    # Use the previous function to get a list of students registered for each course:
     for elem in courses_list:
         students = names_of_registered_students(input_json_path, elem)
         num_enrolled[elem] = len(students)
-    #Sort the list in alphabetical order and print it accordingly:
+    # Sort the list in alphabetical order and print it accordingly:
     ordered_list = list(num_enrolled.keys())
     ordered_list.sort()
     with open(output_file_path, 'w') as file:
